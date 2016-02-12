@@ -10,6 +10,14 @@
 #include <functional>  // function
 #include "rowparser.h" // RowParser
 
+// Forward declarations
+template <typename T>
+class Matrix;
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const Matrix<T>& m);
+
+
 template <typename T>
 class Matrix {
 public:
@@ -43,15 +51,7 @@ private:
 	// Member variables
 	std::vector<std::vector<T>> elements;
 	// Friends
-	friend std::ostream& operator<<(std::ostream &os, const Matrix& m) {
-		for (auto row : m.elements) {
-			for (auto col : row) {
-				os << col << " ";
-			}
-			os << std::endl;
-		}
-		return os;
-	}
+	friend std::ostream& operator<< <T>(std::ostream& out, const Matrix& m);
 };
 
 #include "matrix_impl.hpp"

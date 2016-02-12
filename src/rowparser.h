@@ -19,8 +19,8 @@ template <typename T>
 class RowParser {
 public:
 	RowParser(std::function<T(char)> f);
-    std::vector<T> getRow() const;
-    friend std::ostream& operator<< <T>(std::ostream& out, const RowParser& rp);
+	std::vector<T> getRow() const;
+	friend std::ostream& operator<< <T>(std::ostream& out, const RowParser& rp);
 	friend std::istream& operator>> <T>(std::istream& in, RowParser& rp);
 private:
 	std::vector<T> row;

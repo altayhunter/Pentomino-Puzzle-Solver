@@ -165,3 +165,15 @@ template <typename T>
 const std::vector<T> Matrix<T>::operator[](size_t rowN) const {
 	return elements.at(rowN);
 }
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const Matrix<T>& m) {
+	for (auto row : m.elements) {
+		for (auto col : row) {
+			out << col;
+		}
+		out << std::endl;
+	}
+	return out;
+}
+

@@ -15,7 +15,7 @@ unique_ptr<Matrix<State>> selectRow(const size_t rowN, Matrix<State> m);
 // make_unique is not part of the standard in C++11
 template<typename T, typename ...Args>
 std::unique_ptr<T> make_unique(Args&& ...args) {
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+	return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
 // Launch the threads to find all results in parallel
@@ -83,14 +83,14 @@ unique_ptr<Matrix<State>> selectRow(const size_t rowN, Matrix<State> m) {
 int main(int argc, char **argv) {
 /*
 	// Testcase from the pdf
-    Matrix<State> matrix = {
+	Matrix<State> matrix = {
 		{State::empty, State::empty, State::full,  State::empty, State::full,  State::full,  State::empty},
 		{State::full,  State::empty, State::empty, State::full,  State::empty, State::empty, State::full },
 		{State::empty, State::full,  State::full,  State::empty, State::empty, State::full,  State::empty},
 		{State::full,  State::empty, State::empty, State::full,  State::empty, State::empty, State::empty},
 		{State::empty, State::full,  State::empty, State::empty, State::empty, State::empty, State::full },
 		{State::empty, State::empty, State::empty, State::full,  State::full,  State::empty, State::full },
-    };
+	};
 */
 	Matrix<State> matrix("puzzle", [](char c) {
 			return c == '0' ? State::empty :
@@ -100,5 +100,5 @@ int main(int argc, char **argv) {
 
 	launchThreads(matrix);
 
-    return 0;
+	return 0;
 }
