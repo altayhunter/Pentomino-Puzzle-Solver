@@ -1,4 +1,8 @@
-#pragma once
+#include <algorithm>   // for_each, find_if, max_element
+#include <stdexcept>   // out_of_range
+#include <fstream>     // ifstream
+#include <dirent.h>    // dir, dirent, opendir, readdir, closedir
+#include "rowparser.h" // RowParser
 
 template <typename T>
 Matrix<T>::Matrix(size_t colN, size_t rowN) :

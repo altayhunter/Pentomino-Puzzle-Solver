@@ -1,14 +1,9 @@
 #pragma once
 
 #include <vector>      // vector
-#include <algorithm>   // for_each, find_if, max_element
-#include <stdexcept>   // out_of_range
 #include <ostream>     // ostream
-#include <fstream>     // ifstream
-#include <dirent.h>    // dir, dirent, opendir, readdir, closedir
 #include <string>      // string
 #include <functional>  // function
-#include "rowparser.h" // RowParser
 
 // Forward declarations
 template <typename T>

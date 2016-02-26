@@ -1,5 +1,3 @@
-#pragma once
-
 template <typename T>
 RowParser<T>::RowParser(std::function<T(char)> f) :
 	converter(f) {
