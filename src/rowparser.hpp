@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>   // istream, ostream
 #include <vector>     // vector
 #include <functional> // function
