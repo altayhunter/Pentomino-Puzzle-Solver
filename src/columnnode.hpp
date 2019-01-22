@@ -9,9 +9,9 @@ public:
 	// ColumnNodes cannot be default constructed. They must have an id.
 	ColumnNode() = delete;
 	ColumnNode(int id) : _id(id) {}
-    // ColumnNodes cannot be copied or assigned to. They are immutable.
-    ColumnNode(const ColumnNode&) = delete;
-    ColumnNode& operator=(const ColumnNode&) = delete;
+	// ColumnNodes cannot be copied or assigned to. They are immutable.
+	ColumnNode(const ColumnNode&) = delete;
+	ColumnNode& operator=(const ColumnNode&) = delete;
 	// ColumnNodes cannot be inherited from.
 	~ColumnNode();
 	// Insert a new ColumnNode in this row and return a pointer to it.
@@ -23,18 +23,18 @@ public:
 	// Reconnect all nodes in this column and all nodes in their rows.
 	void uncover();
 	// Comparison operator for finding the column with the fewest nodes.
-    bool operator<(const ColumnNode& rhs) const;
+	bool operator<(const ColumnNode& rhs) const;
 	// Ostream operator for printing the id of the column.
 	friend std::ostream& operator<<(std::ostream& out, const ColumnNode& cn);
-    // Horizontal and vertical iterators. Note that iteration skips over this column.
-    friend class ColumnRightIter;
-    friend class ColumnDownIter;
-    using iterator = ColumnRightIter;
-    using vertical_iterator = ColumnDownIter;
-    iterator begin();
-    iterator end();
-    vertical_iterator vbegin();
-    vertical_iterator vend();
+	// Horizontal and vertical iterators. Note that iteration skips over this column.
+	friend class ColumnRightIter;
+	friend class ColumnDownIter;
+	using iterator = ColumnRightIter;
+	using vertical_iterator = ColumnDownIter;
+	iterator begin();
+	iterator end();
+	vertical_iterator vbegin();
+	vertical_iterator vend();
 
 private:
 	// A unique identifier to use as the name for this column.

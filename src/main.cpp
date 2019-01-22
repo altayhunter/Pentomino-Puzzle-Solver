@@ -6,8 +6,8 @@
 
 // Return a 2D vector representation of the contents of the given folder.
 std::vector<std::vector<State>> readFolder(std::string folder) {
-    DIR *dir = opendir(folder.c_str());
-    assert(dir);
+	DIR *dir = opendir(folder.c_str());
+	assert(dir);
 	std::vector<std::vector<State>> data;
 	while (struct dirent* ent = readdir(dir)) {
 		// Skip hidden and system folders
