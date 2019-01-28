@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import argparse
-import re
+import ast
 
 format = list('''
     --  --
@@ -13,29 +13,41 @@ format = list('''
 -----------
 '''[1:-1])
 
-def setFormatString(index, value):
-	position = -1
-	for i in range(len(format)):
-		if not format[i].isspace():
-			position += 1
-		if position == index:
-			format[i] = value
-			return
-	assert False, 'Format string is shorter than maximum index.'
+# Print the given labels using the whitespace of format.
+def printFormatted(labels):
+	i = 0
+	for c in format:
+		if c.isspace():
+			print(c, end='')
+		else:
+			print(labels[i], end='')
+			i += 1
+	print()
 
-parser = argparse.ArgumentParser(description='Convert array notation into a visual output.')
-parser.add_argument('solution', help='The solution to format. e.g. [0,1,1],[1,0,0]')
+# Insert value into array at index, expanding array as necessary.
+def insertAtIndex(array, index, value):
+	while len(array) < index + 1:
+		array.append(None)
+	array[index] = value
 
-# Remove whitespace from string and split based on brackets
-args = parser.parse_args()
-solution = re.sub(r'\s+', '', args.solution, flags=re.UNICODE)
-assert solution[0] == '[', 'Expected input to start with an open bracket.'
-assert solution[-1] == ']', 'Expected input to end with a close bracket.'
-solution = solution[1:-1]
-# Indicate the location of each piece in the format string by a unique letter
-char = 'a'
-for piece in solution.split('],['):
-	for index in piece.split(','):
-		setFormatString(int(index), char)
-	char = chr(ord(char) + 1)
-print(''.join(format))
+# Input: [[3,2],[1,5],[4,0]]
+# Output: ['c', 'b', 'a', 'a', 'c', 'b']
+def createLabelArray(indexes):
+	result = []
+	for i in range(len(indexes)):
+		label = chr(ord('a') + i)
+		for index in indexes[i]:
+			insertAtIndex(result, index, label)
+	return result
+
+def main():
+	parser = argparse.ArgumentParser(description='Convert array notation into a visual output.')
+	parser.add_argument('solution', help='The solution to format. e.g. [0,1,1],[1,0,0]')
+
+	args = parser.parse_args()
+	solution = ast.literal_eval(args.solution)
+	labels = createLabelArray(solution)
+	printFormatted(labels)
+
+if __name__ == "__main__":
+	main()
