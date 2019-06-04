@@ -3,14 +3,16 @@ import argparse
 import ast
 
 format = list('''
-    --  --
+           -
+           --
+    --  ----
 -----------
 -----------
 ----------
 --------
 -------
 --   --
------------
+------------
 '''[1:-1])
 
 # Print the given labels using the whitespace of format.

@@ -27,6 +27,7 @@ SparseMatrix::SparseMatrix(const vector<vector<State>>& values) :
 	vector<vector<Node*>> grid(values.size(), vector<Node*>(width));
 	// Create a column for each column in values; leave rows unlinked for now.
 	for (int i = 0; i < width; i++) {
+		// TODO: Insert left and above to keep columns and rows in expected order.
 		ColumnNode* cn = root.insertRight(i);
 		for (int j = 0; j < values.size(); j++) {
 			if (values[j][i] == State::full) {
