@@ -1,19 +1,19 @@
 TARGET = main.exe
 CC = $(shell if command -v clang++ >/dev/null 2>&1; then echo "clang++"; else echo "g++"; fi)
 CFLAGS = -O3 -g -std=c++14
-C_SRCS := $(wildcard *.cpp)
-C_OBJS := $(C_SRCS:.cpp=.o)
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.o)
 HDRS = $(wildcard *.hpp)
 
 .PHONY: debug run perf clean
 
-$(TARGET): $(C_OBJS)
-	$(CC) $(CFLAGS) -DNDEBUG -o $(TARGET) $(C_OBJS)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -DNDEBUG -o $(TARGET) $(OBJS)
 
 debug:
-	$(CC) $(CFLAGS) -DDEBUG -o $(TARGET) $(C_SRCS)
+	$(CC) $(CFLAGS) -DDEBUG -o $(TARGET) $(SRCS)
 
-$(C_OBJS): $(HDRS)
+$(OBJS): $(HDRS) $(SRCS)
 	$(CC) $(CFLAGS) -DNDEBUG -c -o $@ $(@:.o=.cpp)
 
 run: $(TARGET)
