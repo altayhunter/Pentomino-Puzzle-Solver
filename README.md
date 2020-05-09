@@ -16,5 +16,12 @@ Implementing this approach improved the performance of the code by a factor of 5
 ![Fourth Solution](images/solution4.png)
 
 # Usage
-* `make run`
-
+* Edit `src/main.cpp` to add the puzzle you want to solve.
+ * Use `0` to represent the puzzle area, `-` to represent non-puzzle area, and `\n` at the end of each row.
+ * There must be exactly sixty `0`s for a solution to be possible.
+* Run `make run` from the `src` directory.
+ * Every possible solution (including rotations and reflections) will be printed, one per line.
+ * The numbers correspond to the squares of the board starting on the top left. Each bundle of five is one piece.
+* Use `pretty_print.py` to better visualize the solution.
+ * Edit `format` to define the structure of the puzzle.
+ * Pass the output of `main.exe` as the parameter to `pretty_print.py`.
