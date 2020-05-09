@@ -34,7 +34,7 @@ constexpr char puzzle54[] =
 
 int main(int argc, char **argv) {
 	SparseMatrix sm(getRows(parsePuzzle(puzzle54)));
-	sm.findSolution(0);
+	sm.printSolutions(puzzle54, 12);
 
 	return 0;
 }

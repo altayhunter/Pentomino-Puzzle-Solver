@@ -22,6 +22,8 @@ public:
 	void cover();
 	// Reconnect all nodes in this column and all nodes in their rows.
 	void uncover();
+	// The numeric identifier for the column.
+	int id() const;
 	// Comparison operator for finding the column with the fewest nodes.
 	bool operator<(const ColumnNode& rhs) const;
 	// Ostream operator for printing the id of the column.

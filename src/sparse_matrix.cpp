@@ -1,13 +1,14 @@
 #include "sparse_matrix.hpp" // SparseMatrix
-#include "state.hpp"         // State
-#include "node.hpp"          // Node
 #include "columnnode.hpp"    // ColumnNode
 #include "iter_util.hpp"     // reverse, vertical
+#include "solution.hpp"      // Solution
+#include "state.hpp"         // State
+#include "node.hpp"          // Node
 #include <algorithm>         // max_element, min_element
 #include <cassert>           // assert
 #include <iostream>          // cout, endl
-#include <vector>            // vector
 #include <iterator>          // distance
+#include <vector>            // vector
 
 using std::cout;
 using std::endl;
@@ -66,12 +67,12 @@ SparseMatrix::~SparseMatrix() {
 	}
 }
 
-void SparseMatrix::findSolution(int depth) {
+void SparseMatrix::findSolutions(int depth) {
 	if (root.begin() == root.end()) {
 #if DEBUG
 cout << "Printing solution at depth " << depth << endl;
 #endif
-		printSolution();
+		solutions.emplace_back(selected);
 		return;
 	}
 	ColumnNode* c = minColumn();
@@ -84,10 +85,10 @@ cout << "Depth " << depth << ": covering column " << *c << endl;
 		for (const Node& j : r) {
 			j.head()->cover();
 		}
-		findSolution(depth + 1);
-		// Knuth's algorithm says to assign r = *solution[depth] here.
+		findSolutions(depth + 1);
+		// Knuth's algorithm says to assign r = *selected[depth] here.
 		// However, it doesn't seem to be necessary, so assert instead.
-		assert(r == *solution[depth]);
+		assert(r == *selected[depth]);
 		c = r.head();
 		for (const Node& j : reverse(r)) {
 			j.head()->uncover();
@@ -99,22 +100,20 @@ cout << "Depth " << depth << ": uncovering column " << *c << endl;
 	c->uncover();
 }
 
-void SparseMatrix::setSolution(Node* value, int index) {
-	if (index >= solution.size()) {
-		solution.resize(index + 1);
+void SparseMatrix::printSolutions(std::string format, int pieces) {
+	if (solutions.empty()) {
+		findSolutions(0);
 	}
-	solution[index] = value;
+	for (Solution solution : solutions) {
+		solution.print(format, pieces);
+	}
 }
 
-void SparseMatrix::printSolution() const {
-	for (Node* row : solution) {
-		cout << "[" << *row->head() << ",";
-		for (Node& n : *row) {
-			cout << *n.head() << ",";
-		}
-		cout << "\b],";
+void SparseMatrix::setSolution(Node* value, int index) {
+	if (index >= selected.size()) {
+		selected.resize(index + 1);
 	}
-	cout << "\b \n";
+	selected[index] = value;
 }
 
 ColumnNode* SparseMatrix::minColumn() {

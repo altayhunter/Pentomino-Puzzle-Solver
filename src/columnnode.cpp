@@ -57,6 +57,9 @@ std::cout << "Uncovering ColumnNode " << *this << " of size " << _count << std::
 	}
 	_node->restore();
 }
+int ColumnNode::id() const {
+	return _id;
+}
 bool ColumnNode::operator<(const ColumnNode& rhs) const {
 	return _count < rhs._count;
 }
